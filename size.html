@@ -1,0 +1,72 @@
+<style type="text/css">
+table {
+    border-collapse: collapse;
+}
+
+thead {
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+}
+
+tbody {
+    border-bottom: 1px solid;
+}
+
+td, th {
+    text-align: center;
+}
+
+th {
+    padding-left: 1ex;
+    padding-right: 1ex;
+}
+
+        .deemph {
+            font-size: 68%;
+        }
+</style>
+<body>
+    <p>
+    <script type="text/javascript">
+        function angle(sensor_size, focal_length) {
+                    return (2 * Math.atan(sensor_size/2/focal_length) / Math.PI * 180);
+                }
+
+        var sensor_sizes = [22.3, 14.9, 36, 24];
+        var sensor_size_labels = ["APS-C horizontal", "APS-C vertical", "Full frame horizontal", "Full frame vertical"];
+
+        var focal_lengths = [15, 22, 35, 45, 50, 75, 100, 150, 200];
+
+        var reference_focal_length = 35;
+        var reference_sensor_size = 36;
+        var reference_angle = angle(reference_sensor_size, reference_focal_length);
+
+        document.write("<table>");
+        document.write("<caption>Field of view with respect to focal length for different sensor sizes</caption>");
+        document.write("<thead><tr><th>Focal length</th>");
+
+        for (var j = 0; j < sensor_size_labels.length; j++)
+            document.write("<th>" + sensor_size_labels[j] + "<br />(" + sensor_sizes[j] + " mm)</th>");
+
+        document.write("</tr></thead><tbody>");
+
+        for (var i = 0; i < focal_lengths.length; i++) {
+                    document.write("<tr><td>");
+                    document.write(focal_lengths[i]);
+                    document.write(" mm</td>");
+
+                    for (var j = 0; j < sensor_sizes.length; j++) {
+                                var a = angle(sensor_sizes[j], focal_lengths[i]);
+                                var ra = a/reference_angle;
+
+                                document.write("<td>");
+                                document.write(a.toPrecision(3));
+                                document.write("&deg; <span class=\"deemph\">(");
+                                document.write(ra.toPrecision(3));
+                                document.write(")</span></td>");
+                            }
+                    document.write("</tr>");
+                }
+        document.write("</tbody></table>");
+    </script>
+</body>
